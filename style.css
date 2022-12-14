@@ -1,0 +1,741 @@
+:root {
+  --clr_main_background: rgb(48, 47, 47);
+
+  --clr-accent_background: rgb(60, 182, 172);
+  --clr-navbar_background: rgb(34, 34, 34);
+  /* https://maketintsandshades.com/#3CB6AC */
+  --clr_main_ff: rgb(182, 189, 202);
+  --clr_accent_ff: rgb(26, 25, 25);
+
+  --clr_btn_list: rgb(60, 182, 172);
+  --clr_frame: rgb(61, 190, 180);
+
+  --clr_btn_input_background: rgb(173, 80, 80);
+  --clr_btn_selected: rgb(224, 177, 21);
+  --clr_btn_border_selected: rgb(0, 153, 255);
+  --clr_btn_input: rgb(71, 71, 71);
+  --clr_box_shadow: rgb(128, 126, 126);
+  --clr_ingredientsbox: rgb(57, 57, 57);
+
+  --ff_main: 'Roboto', sans-serif;
+  --ff_accent: 'Handlee', sans-serif;
+
+  /*
+    font-family: 'Handlee', cursive;
+    font-family: 'Inspiration', cursive;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Permanent Marker', cursive;
+    font-family: 'Roboto', sans-serif;
+    */
+
+  --ff_main_size: 1em;
+  --ff_btn_size: 0.8em;
+}
+/* ===================================== */
+/* Gerneral */
+/* ===================================== */
+/*
+--- 01 TYPOGRAPHY SYSTEM
+
+- Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+- Font weights
+Default: 
+Medium: 
+Semi-bold: 
+Bold: 
+- Spacing system (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+- Line heights
+Default: 
+Small: 
+Medium: 
+Paragraph default: 1.6
+Large: 
+
+- Letter spacing
+
+
+--- 02 COLORS
+- Primary: #8EDEE0 
+- Tints:
+#d2f2f3
+#c7eff0
+#a5e5e6
+
+- Shades: 
+#639b9d
+#2b4343
+
+- Accents:
+#ef3768
+#f47395
+#a72749
+- Greys
+
+#888
+#767676 (lightest grey allowed on #fff)
+#6f6f6f (lightest grey allowed on #fdf2e9)
+#555
+#333
+
+--- 05 SHADOWS
+
+
+--- 06 BORDER-RADIUS
+
+Default: 15px
+Medium: 
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 100%; /*62%*/
+  font-family: var(--ff_main);
+  position: fixed;
+  background-color: var(--clr_main_background);
+  width: 100vw;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  top: 0;
+  overscroll-behavior-y: contain;
+}
+p,
+textarea {
+  font-family: var(--ff_main);
+  font-size: 1.2rem;
+}
+.main_div {
+  position: fixed;
+  background-color: var(--clr_main_background);
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 600px;
+  max-height: 1000px;
+  min-width: 300px;
+  max-width: 750px;
+}
+
+.header {
+  position: relative;
+  margin-top: 0;
+  width: 100%;
+  min-height: 80px;
+  height: 10%;
+  z-index: 99;
+  background-color: var(--clr-accent_background);
+  font-weight: 500;
+  font-family: var(--ff_accent);
+  display: flex;
+  justify-content: center;
+}
+.headline_div_h1 {
+  position: relative;
+  top: 0.25em;
+  width: 70%;
+  height: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2em;
+}
+.edit_name_ico {
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  right: 1.5em;
+  scale: 1.5;
+}
+.delete_item {
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  left: 1.5em;
+  scale: 1.5;
+  color: rgb(185, 40, 40);
+}
+.header__h1 {
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: clamp(3vh, 4.5vh, 8vh);
+  line-height: 90%;
+  transition: all 800ms;
+}
+.input_name {
+  position: absolute;
+  margin-top: auto;
+  margin-bottom: auto;
+  z-index: +1;
+  width: 80%;
+  height: 70%;
+  font-size: clamp(2vh, 4vh, 5vh);
+}
+.input_active {
+  text-align: center;
+  border: rgb(39, 39, 39) solid 2px;
+  border-radius: 100px;
+  color: var(--clr_accent_ff);
+  background-color: var(--clr_btn_input_background);
+  font-weight: 900;
+  font-family: var(--ff_accent);
+}
+/*==============================================================*/
+.header_menu_box {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.menu_btn {
+  position: absolute;
+  top: 0.8em;
+  right: 0.6em;
+  font-size: 2em;
+}
+.menu_btn:hover,
+.menu_btn:active {
+  filter: invert(0.2);
+  transition: all 300ms;
+}
+
+.burger_menu {
+  scale: 1.3;
+}
+
+.menu_box_open {
+  position: absolute;
+  transform: translateX(0);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  top: 0rem;
+  right: 0;
+  padding: 2rem;
+  background-color: var(--clr_main_background);
+  filter: drop-shadow(var(--clr_box_shadow) 1px 1px 10px);
+  transition: all 250ms ease-in-out;
+  height: 100vh;
+  width: 80vw;
+  gap: 1rem;
+}
+
+.main_div_darken_all {
+  filter: brightness(0.7);
+}
+.lighten {
+  filter: brightness(5);
+  filter: invert(1);
+}
+.menu_box_closed {
+  /* scale: 0 1; */
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 250ms ease-in;
+}
+
+.btn_menu_li {
+  background-color: var(--clr_btn_list);
+  padding: 0.5rem 1.2rem;
+  border-radius: 100px;
+  border: none;
+  font-family: var(--ff_main);
+  font-weight: 500;
+  box-shadow: 1px 1px 8px var(--clr_box_shadow);
+  transition: all 300ms; /*yyy*/
+}
+
+.btn_menu_li:nth-child(1) {
+  margin-bottom: 0.8rem;
+  background-color: var(--clr_main_background);
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0.2rem;
+  box-shadow: none;
+}
+.btn_close {
+  scale: 2;
+  color: var(--clr_main_ff);
+}
+.btn_close {
+  filter: invert(0.2);
+  transition: all 300ms;
+  padding: 0.8rem;
+}
+#btn_menu_close {
+  scale: 3;
+}
+#btn_menu_close:hover {
+  transition: all 300ms;
+  scale: 2;
+}
+
+/*Content =========== Main ============================================*/
+.btn_checked {
+  color: rgb(251, 255, 0);
+}
+.content {
+  position: relative;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 400vw;
+  height: 75%;
+  transition: all 300ms ease-in-out;
+}
+.content_page_1 {
+  left: 0vw;
+}
+.content_page_2 {
+  left: -100vw;
+}
+.content_page_3 {
+  left: -200vw;
+}
+.content_page_4 {
+  left: -300vw;
+}
+.content_page_end {
+  left: -330vw;
+}
+.content_page_start {
+  left: 30vw;
+}
+.content__menulist {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  overflow-y: scroll;
+}
+.content__ar_menulist {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  width: 100vw;
+  padding: 2rem;
+  padding-top: 0;
+}
+.content__menulist_item {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: center;
+  background-color: var(--clr_btn_list);
+  padding: 0.5em;
+  border-radius: 100px;
+  width: 70%;
+  font-family: var(--ff_main);
+  font-weight: 500;
+}
+.content__menulist_item:hover,
+.content__menulist_item:active {
+  transition: all 300ms;
+  scale: 0.95;
+  filter: brightness(1.3);
+}
+.content__menulist_item_first {
+  margin-top: -1em;
+}
+/*==================================================================*/
+/*Content =========== Edit ============================================*/
+.btn_fav_etc {
+  position: absolute;
+  height: 10em;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  left: 86vw;
+  top: 8rem;
+  z-index: 999; /*yyy back */
+}
+
+.btn_fav_active {
+  color: rgba(255, 255, 0, 0.774);
+}
+.btn_test {
+  color: var(--clr_main_ff);
+}
+.content_box {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 75%;
+}
+.content_spacer {
+  position: absolute;
+  background-color: var(--clr-navbar_background);
+  height: 3%;
+  width: 100%;
+}
+h2 {
+  color: var(--clr_main_ff);
+  font-family: var(--ff_accent);
+  margin-top: 0.5em;
+  margin-left: 2.4rem;
+  font-size: 1.8em;
+}
+.h2_add {
+  position: relative;
+}
+.add_ico {
+  position: absolute;
+  color: rgb(89, 182, 94);
+  left: 14em;
+  top: 0.5em;
+  scale: 1.5;
+  border: var(--clr-navbar_background) solid 2px;
+  border-radius: 100px;
+}
+.content__scroll_list {
+  height: 100%;
+  width: 100vw;
+  overflow-y: scroll;
+  padding-top: 0.5rem;
+}
+.recipe_page {
+  position: absolute;
+  top: 14vh;
+  height: 73vh;
+  padding: 0 0 1rem 0;
+  z-index: 2;
+}
+.content__scroll_list_add_or_edit {
+  top: 14vh;
+  position: absolute;
+  height: 73vh;
+  width: 100vw;
+  overflow-y: scroll;
+  transition: all 250ms ease-in-out;
+  transform: translateY(125%);
+}
+.content__scroll_list_add_or_edit_show {
+  transform: translateY(0%);
+  transition: all 250ms ease-in-out;
+  z-index: 1;
+}
+
+.content__li_item {
+  position: relative;
+  margin-left: 0.5rem;
+  /* margin-left: auto;
+  margin-right: auto; */
+  margin-top: 0.3em;
+  display: block;
+  border-radius: 10px;
+  width: 90%;
+  font-family: var(--ff_main);
+  font-weight: 500;
+  color: var(--clr_main_ff);
+}
+#content_ingredients_box {
+  padding-right: 2rem;
+}
+#content__ar_preparation {
+  width: 90%;
+  padding-left: 1rem;
+  margin-bottom: 6rem;
+}
+.content__li_item_edit {
+  background-color: var(--clr-accent_background);
+  color: var(--ff_accent);
+  transition: all 350ms;
+}
+.content__li_item_edit_selected {
+  background-color: var(--clr_btn_selected);
+  border: var(--clr_btn_border_selected) solid 3px;
+  color: var(--ff_accent);
+  transition: all 350ms;
+}
+
+.edit_ico {
+  scale: 1.5;
+}
+.li_edit_btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 7rem;
+  right: -2.5em;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 0.7em;
+  z-index: +1;
+  border-radius: 100px;
+  background-color: var(--clr_btn_selected);
+  border: var(--clr_btn_border_selected) solid 3px;
+  transition: all 350ms;
+}
+.li_delete {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -2em;
+  color: rgb(223, 48, 48);
+  scale: 1.5;
+  border-radius: 100px;
+  transition: all 350ms;
+}
+
+/* Add menu =================================*/
+.grid {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content min-content 1fr;
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
+  align-items: center;
+}
+#content_ingredients_box p {
+  background-color: var(--clr_ingredientsbox);
+  padding: 0.1rem 0.2rem;
+  border-radius: 5px;
+}
+.grid_number {
+  display: flex;
+  justify-content: end;
+}
+.grid_swap_order {
+  display: flex;
+  justify-content: start;
+}
+#ingredients_show_box {
+  row-gap: 0.8rem;
+}
+.input_edit_icon {
+  scale: 1.2;
+  align-self: center;
+}
+.icon_opacity {
+  opacity: 0;
+}
+.input_trash_icon {
+  color: brown;
+}
+.add_box {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.2rem;
+}
+.input_field {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  width: 100%;
+  align-items: center;
+  padding: 0.4rem;
+  background-color: var(--clr_main_background);
+  color: var(--clr_main_ff);
+  border: var(--clr_main_ff) solid 2px;
+  border-radius: 10px;
+}
+.ingredients_box {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+#ingredient {
+  width: 48%;
+}
+#ingredient_quatity {
+  width: 22%;
+  text-align: center;
+}
+#ingredient_unit {
+  width: 28%;
+  text-align: center;
+}
+.btn_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--clr_btn_list);
+  filter: drop-shadow(rgb(128, 126, 126) 1px 1px 5px);
+  border: var(--clr_main_background) solid 2px;
+  opacity: 0.6;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 100px;
+}
+.ingredient_add_btn {
+  justify-content: center;
+  align-items: center;
+  scale: 2;
+}
+
+.ingredient_add_btn_position {
+  position: absolute;
+  bottom: -2rem;
+  left: 80%;
+  transform: translateX(-50%);
+}
+#ingredient_input_list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--clr_main_ff);
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+/* #preperation {
+  font-size: 1.2rem;
+} */
+.preperation_box {
+  margin-bottom: 20vh;
+}
+.save_btn_new_recipe_box {
+  margin-top: -1.5rem;
+  gap: 3rem;
+  z-index: 999;
+}
+.center_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* scale: 0.8; */
+}
+#btn_recipe_trash {
+  aspect-ratio: 1/1;
+  background-color: var(--clr_btn_input_background);
+}
+.btn_icon_scale {
+  scale: 1.1;
+}
+.save_btn_new_recipe_icon_box {
+  font-size: 1.2rem;
+  font-family: var(--ff_main);
+  color: var(--ff_accent);
+  background-color: rgb(63, 155, 51);
+  padding: 0.4rem 1rem;
+}
+
+/*Navbar ============================================*/
+.footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 15%;
+  min-height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--clr-navbar_background);
+  z-index: 2;
+}
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5em;
+  width: 100%;
+  height: 100%;
+}
+.content__coincidence_icon {
+  position: absolute;
+  top: -4em;
+  left: 1.8em;
+}
+.content__input_icon_pos {
+  position: absolute;
+  top: -4em;
+  right: 2em;
+}
+.content__input_icon {
+  justify-content: center;
+  align-items: center;
+  background-color: var(--clr_btn_list);
+  filter: drop-shadow(rgb(128, 126, 126) 1px 1px 4px);
+  border: var(--clr_main_background) solid 2px;
+  scale: 1.4;
+  opacity: 0.8;
+  border-radius: 100px;
+  padding: 0.3rem;
+  transition: all 300ms;
+}
+
+.nav_ico_underline {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.navbar__icon {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+  padding: 0.2em;
+  scale: 2.6;
+  color: brown;
+  filter: invert(1);
+  opacity: 0.5;
+}
+.underline {
+  font-size: 0.7em;
+  font-family: var(--ff_main);
+  color: var(--clr_main_ff);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.current_icon {
+  /* filter: brightness(1.8); */
+  filter: brightness(3.5);
+  scale: 2.95;
+  transition: all 500ms;
+}
+.ico {
+  scale: 2;
+}
+/*===========================================================*/
+
+.display_none {
+  scale: 1, 0;
+  transition: all 250ms ease-in-out;
+}
+.hide {
+  display: none;
+  z-index: -1;
+}
+.btn_active {
+  filter: drop-shadow(none);
+  filter: brightness(1.2);
+  scale: 1.1;
+  transition: all 300ms;
+}
+.btn_navbar_icon_active {
+  filter: brightness(1.2);
+  scale: 2;
+  transition: all 150ms;
+}
+.transform_to_left {
+  transform: translateX(-100%);
+  transition: all 300ms ease-in-out;
+}
+.transform_to_right {
+  transform: translateX(100%);
+  transition: all 300ms ease-in-out;
+}
+/* DELETE */
+#btn_fav_etc {
+  z-index: 9999;
+}

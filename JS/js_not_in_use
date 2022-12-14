@@ -1,0 +1,216 @@
+//localStorage.setItem('Meine_Liste',JSON.stringify(recipe));
+// // add item to temp
+// let xxx = JSON.parse(localStorage.getItem('temp'));
+// xxx.fav_show = 'false'
+// localStorage.setItem('temp',JSON.stringify(xxx))
+//get current page
+
+// setTimeout(function () {
+//     console.log(recipe_fav_filtered)},500);
+////////////////////////////////////////////////////////////////////////////////
+
+// // let cache_name = "recipe_list_cache";
+// // start_caching();
+// // function start_caching() {
+// //   //open chach
+// //   caches.open(cache_name).then((cache) => {
+// //     // console.log(cache_name);
+// //     cache.add("/recipe_list.json");
+
+// //     // // cache.keys().then(keys =>{
+// //     // //     keys.forEach((key,index)=>{
+// //     // //         console.log(index,key);
+// //     // //     })
+// //     // // })
+// //   });
+// // }
+// // check_cache_exist();
+// // function check_cache_exist() {
+// //   let recipe_list_cache = "recipe_list.json";
+// //   caches.match("recipe_list.json").then((cacheResponse) => {
+// //     // console.log(cacheResponse);
+// //     // recipe_fetch = cacheResponse
+// //     // console.log(recipe_fetch.json())
+// //     return cacheResponse.json();
+// //   });
+// // }
+
+// // console.log(check_cache_exist);
+
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////
+
+let recipe_ex = [
+  {
+    name: 'Pizza',
+    fav: 'false',
+    ingredients: ['Teig', 'Soße', 'Salami', 'Paprika'],
+    preparation: ['Pre1', 'Pre2'],
+  },
+  {
+    name: 'Spaghetti',
+    fav: 'false',
+    ingredients: ['Nudel', 'Tomatensoße'],
+    preparation: ['Pre1 Spaghetti', 'Pre2 Spaghetti'],
+  },
+  {
+    name: 'Majoran Klöße',
+    fav: 'false',
+    ingredients: ['Nudel', 'Tomatensoße'],
+    preparation: ['Pre1 Klöße', 'Pre2 Klöße'],
+  },
+  {
+    name: 'Maultaschen-Suppe',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Kartoffelecken',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Frikadellen',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Rindergulasch',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'ToGeNu-Pfanne',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Aus nix irgend was',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Kartoffel-Auflauf',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Reis-Spezial',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Tortellini',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Kürbiscreme-Suppe',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Chili con carne',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Lasagne',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Bratwurst',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Lachs a la Provence',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Wirsing-Gemüse',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+  {
+    name: 'Reis-Gemüse',
+    fav: 'false',
+    ingredients: ['Zutat 1', 'Zutat 2'],
+    preparation: ['Pre1 ', 'Pre2 '],
+  },
+];
+
+//////////////      LOAD local list         ///////////////////////////////////////////////////////////
+
+// if (page == 'edit.html') {
+//   temp = JSON.parse(localStorage.getItem('temp'));
+//   menulist_clicked_id = temp.menulist_clicked_id;
+//   // change btn look fav shooping weeklyplan
+//   if (recipe[menulist_clicked_id].fav == true) {
+//     document.getElementById('navbar__fav_on_off').classList.add('btn_checked');
+//   }
+//   if (recipe[menulist_clicked_id].fav == false) {
+//     document
+//       .getElementById('navbar__fav_on_off')
+//       .classList.remove('btn_checked');
+//   }
+// f_recipe_page_fill_content(recipe, menulist_clicked_id);
+// }
+
+//=================================================================================
+//Cach
+// const recipe_caches = 'recipe_caches';
+// const temp_caches   = 'temp_caches';
+const static_caches = 'static_caches';
+const assets_caches = [
+  '/',
+  '/index.html',
+  '/edit.html',
+  '/style.css',
+  'https://fonts.googleapis.com/css2?family=Handlee&family=Inspiration&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Permanent+Marker&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet',
+  '/recipe_list.json',
+  'https://kit.fontawesome.com/08bda1a087.js',
+];
+
+// update_cache() TODO
+function update_cache() {
+  caches.open(static_caches).then(cache => {
+    console.log('caching shell asselts');
+    cache.addAll(assets_caches);
+  });
+  // caches.open(recipe_caches).then(cache => {
+  //     cache.addAll(recipe);
+  // })
+  // console.log(temp)
+  // caches.open(temp_caches).then(cache => {
+  //     cache.addAll(temp);
+  // })
+}
+
+// //filte array
+// const recipe_fav_filtered = recipe_ex2.filter(item => {
+//   return item.fav == 'true';
+// });
+
+////////////////////////////////////////////////////////////////////////////////
+// // // var path = window.location.pathname; DELETE
+// // // var page = path.split('/').pop();
+
+//======================================================================================================
