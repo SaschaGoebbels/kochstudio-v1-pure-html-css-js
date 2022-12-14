@@ -44,7 +44,7 @@ const recipe_obj_example = {
   ingredients: [],
   preparation: ' ',
 };
-let new_recipe_obj = {}; //Object.assign({}, recipe_obj_example)
+let new_recipe_obj = {};
 let emty_list_obj = recipe_obj_example; // Die Liste ist leer !
 // // //Scroll to top after reload
 $(document).ready(function () {
@@ -174,11 +174,12 @@ function f_btn_add_or_edit() {
   unhide_id('save_btn_new_recipe_box');
   ingredients_show_box.innerHTML = ' ';
   const i = f_check_index_recipe_or_fav();
-  new_recipe_obj = Object.assign({}, recipe_obj_example);
+  new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));
+
   // // // check if index is from recipe or fav => than open
   if (recipe_page_active == true) {
     h1_name(recipe.recipe_list[i].name);
-    new_recipe_obj = Object.assign({}, recipe.recipe_list[i]);
+    new_recipe_obj = JSON.parse(JSON.stringify(recipe.recipe_list[i]));
     console.log(new_recipe_obj);
     // // // fill with Content if editmode (ingredients + preperation)
     input_fill_with_content(new_recipe_obj);
@@ -196,8 +197,10 @@ function f_check_index_recipe_or_fav() {
       recipe_fav2[actual_recipe_i].name,
       recipe.recipe_list
     );
+    console.log('fav', actual_recipe_i);
     return actual_recipe_i;
   } else {
+    console.log('standard', actual_recipe_i);
     return actual_recipe_i;
   }
 }
@@ -279,6 +282,8 @@ btn_new_recipe_save.addEventListener('click', function () {
   ingredient_quatity.value = '';
   preperation.value = '';
   ingredients_show_box.innerHTML = ' ';
+  // // // clear new_recipe_obj
+  new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));
   f_add_or_edit_close();
   if (recipe_page_active == true) {
     const search_name = recipe.recipe_list[actual_recipe_i].name;
@@ -316,7 +321,7 @@ function ingredient_add_elements(
 
 btn_add_edit_close.addEventListener('click', function () {
   btn_active(btn_add_edit_close);
-  new_recipe_obj = recipe_obj_example; //yyy slice
+  new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));
   f_add_or_edit_close();
 });
 
@@ -388,6 +393,7 @@ function f_btn_shoopinglist() {
   btn_navbar_icon_active(btn_shoopinglist);
   h1_name('Einkaufsliste');
   navbar_current_icon_switch_to(btn_shoppinglist);
+  console.log(new_recipe_obj);
 }
 //////////////////////////////////////////////////////////////////////////////////
 // // // Slide functions
@@ -478,10 +484,11 @@ function load_list_query(arr, recipe_mainlist) {
         if (el.id.length > 12) {
           el_id = el.id.substring(12);
           open_list_item(arr, el_id);
-        } else {
+        } else if (el.id.length < 12) {
           // // // open main recipe_list
           el_id = el.id.substring(8);
           open_list_item(arr, el_id);
+          return;
         }
         // // // if list is emty create new element
         if (emty_list_str == recipe.recipe_list[0].name) {
@@ -722,7 +729,7 @@ if (get_local_list == null) {
 
   f_fill_div(recipe.recipe_list, '#div_ar_menulist', 'menulist');
   recipe_create_fav(recipe.recipe_list);
-  f_fill_div(recipe_fav2, '#div_ar_menulist_fav', 'menulist_fav');
+  // f_fill_div(recipe_fav2, '#div_ar_menulist_fav', 'menulist_fav');CHECK DELETE
 }
 
 // // // create new locale file by using liste name
