@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kochstudio</title>
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Handlee&family=Inspiration&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Permanent+Marker&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <!-- Favicon -->
+    <!-- <link rel="icon" href="/img/favicon/logo_fav64.png" /> -->
+    <!-- Apple Webapp Icon -->
+    <link rel="apple-touch-icon" href="/icon/icon-144x144.png" />
+    <!-- Andriod Webapp Icon -->
+    <link rel="shortcut icon" type="image/jpg" href="/icon/icon-192x192.png" />
+    <link rel="manifest" href="manifest.json" />
+    <!-- manifest.webmanifest -->
+
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/08bda1a087.js" crossorigin="anonymous"></script>
+    <!--Style-->
+    <link rel="stylesheet" href="/style.css">
+    <!--jQuery-->
+    <script type="application/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!--Dimm Background-->
+    <script type="text/javascript"
+        src="https://andywer.github.io/jquery-dim-background/jquery.dim-background.min.js"></script>
+    <!--Manifest-->
+    <link rel="manifest" href="/manifest.json">
+</head>
+
+<body>
+    <!--=====   Header     ==============================================================================================================-->
+    <div class="main_div" id="main_div">
+        <!--Header-->
+        <div class="header">
+
+            <div class="headline_div_h1">
+                <h1 class="header__h1" id="header__h1">Gerichte</h1>
+            </div>
+
+            <div class="header_menu_box">
+                <div class="menu_btn " id="btn_menu">
+                    <i class="fa-sharp fa-solid fa-bars burger_menu"></i>
+                </div>
+                <ul class="menu_box_open menu_box_closed" id="menu_box">
+                    <li class="btn_menu_li">
+                        <ion-icon id="btn_menu_close" class="btn_close" name="close-circle-outline"></ion-icon>
+                        <!-- <i id="btn_menu_close" class=" btn_close fa-sharp fa-solid fa-circle-xmark"></i> -->
+                    </li>
+                    <li class="btn_menu_li" id="shopping_list">Einkaufsliste verwalten</li>
+                    <li class="btn_menu_li" id="weekly_plan">Wochenplan verwalten</li>
+                    <li class="btn_menu_li" id="btn_save_to_downloads">Rezeptliste Backup</li>
+                    <li class="btn_menu_li" id="btn_load_list_from_txt_file">Rezeptliste laden</li>
+                    <li class="btn_menu_li" id="load_example_list">Beispielliste laden</li>
+
+                </ul>
+            </div>
+
+        </div>
+        <!--=====   Content Fixed Position    ==============================================================================================================-->
+        <!-- POSITION ABSOLUT -->
+
+        <!--=====   List  Buttons   ==============================================================================================================-->
+        <div class="btn_fav_etc hide" id="btn_fav_etc">
+            <i id="navbar__fav_on_off" class=" btn_fav_active fa-solid fa-star content__input_icon"></i>
+            <i id="navbar__weekly_plan_on_off" class="  fa-solid fa-object-group content__input_icon"></i>
+            <i id="navbar__shopping_list_on_off" class=" fa-sharp fa-solid fa-list-ul content__input_icon"></i>
+
+        </div>
+        <!--=====   Recipe Page    ==============================================================================================================-->
+        <div class="content__scroll_list recipe_page hide" id="content__recipe_page">
+
+            <div class="h2_add">
+                <h2>Zutaten:</h2>
+                <i class="add_ico fa-solid fa-circle-plus hide" id="add_ingredient"></i>
+            </div>
+            <div id="content__ar_ingredients">
+                <div class="grid content__li_item" id="content_ingredients_box">
+                </div>
+            </div>
+
+            <div class="h2_add">
+                <h2>Zubereitung:</h2>
+                <!-- <i class="add_ico fa-solid fa-circle-plus hide" id="add_preparation"></i> -->
+            </div>
+            <div class="content__ar_preparation content__li_item" id="content__ar_preparation">
+
+            </div>
+        </div>
+        <!--=====   Add New Recipe     ==============================================================================================================-->
+        <form class="content__scroll_list_add_or_edit " id="content__add_item">
+
+            <div class="add_box recipe_name_box" id="recipe_name_box">
+                <h2>Gericht:</h2>
+                <input type="text" class="input_field" id="recipe_name" autocomplete="off">
+                <!-- <i class="add_ico fa-solid fa-circle-plus hide" id="add_ingredient"></i> -->
+            </div>
+            <div class="add_box " id="ingredients_main_box">
+                <h2>Zutaten:</h2>
+                <!--list of added items at beginning hide -->
+                <div class=" ingredient_input_list " id="ingredient_input_list">
+                    <div class="grid hide" id="ingredients_show_box">
+                        <p>Zwiebel</p>
+                        <p>3</p>
+                        <p> Stk.</p>
+                        <p>Zwixxxxebel</p>
+                        <p>3</p>
+                        <p>Stk.</p>
+                    </div>
+                </div>
+                <div class="ingredients_box" id="ingredients_box">
+                    <input type="text" class="input_field" id="ingredient" placeholder=" " onClick="this.select();">
+                    <input type="number" class="input_field" id="ingredient_quatity" placeholder="Menge"
+                        onClick="this.select();">
+                    <select name="unit" class="input_field" id="ingredient_unit">
+                        <option value="g">g</option>
+                        <option value="kg">kg</option>
+                        <option value="ml">ml</option>
+                        <option value="l">l</option>
+                        <option value="TL-gestr.">TL-gestr.</option>
+                        <option value="TL">TL</option>
+                        <option value="EL">EL</option>
+                        <option value="Stk.">Stk.</option>
+                        <option value="Priese">Priese</option>
+                        <option value="Tasse">Tasse</option>
+                        <option value="--">--</option>
+                    </select>
+                    <div class="btn_box ingredient_add_btn_position" id="btn_add_ingredient">
+                        <ion-icon name="add-circle-outline" class="ingredient_add_btn" id="ingredient_add_btn">
+                        </ion-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="add_box preperation_box" id="preperation_box">
+                <h2>Zubereitung:</h2>
+                <textarea name="prep" rows="20" cols="30" id="preperation" class="input_field"></textarea>
+            </div>
+        </form>
+
+        <!--=====   Content Swipe    ==============================================================================================================-->
+        <div class="content content_page_1" id="content_page">
+            <div class="content_spacer"></div>
+            <!-- POSITION RELATIV -->
+            <!--Recipe_List-->
+            <div class="content__scroll_list" id="div_menulist">
+                <!--content__menulist-->
+                <ul class="content__ar_menulist" id="div_ar_menulist">
+                    <!-- <li class="content__menulist_item content__menulist_item_first" id="menulist0"> -->
+                    </li>
+                </ul>
+            </div>
+            <!--=====   Weeklyplan     ==============================================================================================================-->
+            <div class="content__scroll_list" id="div_weekly_plan">
+                <div class="content__ar_menulist">
+                    <!--content__ar_menulist-->
+                    <h2>Hier entsteht ein Wochenplan ... :</h2>
+                    <!-- <i class="add_ico fa-solid fa-circle-plus hide" id="add_ingredient"></i> -->
+                </div>
+                <!-- <div id="content__ar_shoopinglist">
+                    <div class="grid content__li_item" id="content_ingredients_box">
+                    </div>
+                </div> -->
+
+            </div>
+            <!--=====   Fav     ==============================================================================================================-->
+            <!--Recipe_Fav_List-->
+            <div class="content__scroll_list" id="div_menulist_fav">
+                <ul class="content__ar_menulist" id="div_ar_menulist_fav">
+                    <!-- <li class="content__menulist_item content__menulist_item_first" id="menulist0"> -->
+                    </li>
+                </ul>
+            </div>
+            <!--=====   Shoopinglist     ==============================================================================================================-->
+            <div class="content__scroll_list" id="content__scroll_shoppinglist">
+
+                <div class="content__ar_menulist">
+                    <h2>Einkaufsliste:</h2>
+                    <!-- <i class="add_ico fa-solid fa-circle-plus hide" id="add_ingredient"></i> -->
+                </div>
+                <!-- <div id="content__ar_shoopinglist">
+                    <div class="grid content__li_item" id="content_ingredients_box">
+                    </div>
+                </div> -->
+            </div>
+
+
+
+        </div>
+        <!--=====   Footer     ==============================================================================================================-->
+        <footer class="footer">
+            <!--Conincidence-->
+            <i id="coincidence_btn" class=" content__input_icon content__coincidence_icon fa-solid fa-hat-wizard"></i>
+            <!--Add btn-->
+            <i class="content__input_icon_pos fa-sharp fa-solid fa-pen-to-square content__input_icon"
+                id="btn_add_or_edit"></i>
+            <!--=================================================================================-->
+
+            <nav class="navbar " id="navbar">
+                <div class="nav_ico_underline">
+                    <i id="btn_recipe" class=" current_icon navbar__icon fa-solid fa-house"></i>
+                    <p class="underline">Gerichte</p>
+                </div>
+                <div class="nav_ico_underline">
+                    <i id="btn_weekly_plan" class="weekly_plan navbar__icon fa-solid fa-object-group"></i>
+                    <p class="underline">Wochenplan</p>
+                </div>
+                <div class="nav_ico_underline">
+                    <i id="btn_fav" class="home navbar__icon  fa-sharp fa-solid fa-heart"></i>
+                    <p class="underline">Favoriten</p>
+                </div>
+                <div class="nav_ico_underline">
+                    <i id="btn_shoppinglist" class="shopping_list navbar__icon fa-sharp fa-solid fa-list-ul"></i>
+                    <p class="underline">Einkaufsliste</p>
+                </div>
+            </nav>
+            <div class="save_btn_new_recipe_box  center_content hide" id="save_btn_new_recipe_box">
+                <div class="center_content save_btn_new_recipe_trash content__input_icon" id="btn_recipe_trash">
+                    <ion-icon class="btn_icon_scale" name="trash-outline"></ion-icon>
+                </div>
+                <div class="content__input_icon center_content" id="btn_add_edit_close">
+                    <ion-icon class="btn_icon_scale" name="close-circle-outline"></ion-icon>
+                </div>
+                <div class=" save_btn_new_recipe_icon_box content__input_icon center_content" id="btn_new_recipe_save">
+                    <ion-icon class="save-outline" name="save-outline"></ion-icon>
+                    <!--&nbsp;Save-->
+                </div>
+
+            </div>
+        </footer>
+
+        <!--
+    Coincidence
+<button id="btn_coincidence_list_item" class="btn_coincidence_list_item">Zufallsgenerator</button>
+    
+-->
+        <script src="/JS/script.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <!-- <script
+    nomodule
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+  ></script> -->
+</body>
+
+</html>
