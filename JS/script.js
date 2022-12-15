@@ -1,16 +1,7 @@
 'use strickt';
-// touch main div leave menu
-// recipepage linehight down distance up
-// open listitem after alpahabetically order
-// reopten after new name
-// list view with linebreack fix
-// letter alphabetic order casesensitive
-
-// fav bug edit delete
-// scroll up down recipe
-// scroll left right menu
-// Recipepage disconnect to scroll page
-// Input also disconnect to scroll page
+// reloade div after change recipe or fav
+// reopen after new name
+// Animation swipe list le ri
 
 // fav obj show list
 // example list deactivate
@@ -20,12 +11,9 @@
 // // weeklyplan
 // // shoppinglist
 // // search function
-// // ingredients quantity unit(dropdown+input)
-// // order arr a-z
 
 const local_list_name = 'Kochstudio_Rezepte';
 const emty_list_str = 'Die Liste ist leer !';
-let current_page;
 let list_click;
 let actual_recipe_i;
 let recipe_page_active = false;
@@ -34,7 +22,7 @@ let btn_add_to_list = document.querySelector('#btn_add_to_list');
 let btn_read_json_file = document.querySelector('#read_json_file');
 let btn_delete_json_file = document.querySelector('#delete_json_file');
 const url = window.location.href;
-let fav = false; // Status for RecipeItem
+let fav = false; // Status of RecipeItem
 let recipe = {};
 let recipe_fav = [];
 let recipe_fav2 = [];
@@ -65,11 +53,11 @@ async function fetch_recipe_list() {
     });
 }
 
-// // // Generate Fav List BUG (on emty list fill recipe fav)
 const recipe_create_fav = function (arr) {
   if (arr[0].name == emty_list_str) {
     return;
   }
+  recipe_fav = [];
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].fav == true) {
       recipe_fav.push(arr[i]);
@@ -173,38 +161,47 @@ function f_btn_add_or_edit() {
   hide_id('btn_fav_etc');
   unhide_id('save_btn_new_recipe_box');
   ingredients_show_box.innerHTML = ' ';
-  const i = f_check_index_recipe_or_fav();
+  let i; //= f_check_index_recipe_or_fav();
   new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));
 
   // // // check if index is from recipe or fav => than open
   if (recipe_page_active == true) {
+    i = f_check_index_recipe_or_fav();
     h1_name(recipe.recipe_list[i].name);
     new_recipe_obj = JSON.parse(JSON.stringify(recipe.recipe_list[i]));
-    console.log(new_recipe_obj);
     // // // fill with Content if editmode (ingredients + preperation)
     input_fill_with_content(new_recipe_obj);
     input_edit_icon_opacity();
   } else {
     f_content_page(1);
+    recipe_name.value = '';
+    preperation.value = '';
     h1_name('Neuer Eintrag');
   }
+  i = actual_recipe_i;
   swap_icon(recipe.recipe_list[i]);
   input_trash_icon(new_recipe_obj);
 }
 function f_check_index_recipe_or_fav() {
   if (content_page.classList.contains('content_page_3')) {
+    // if (content__recipe_page.classList.contains('hide')) {
     f_search_index_by_name(
       recipe_fav2[actual_recipe_i].name,
       recipe.recipe_list
     );
-    console.log('fav', actual_recipe_i);
     return actual_recipe_i;
   } else {
-    console.log('standard', actual_recipe_i);
     return actual_recipe_i;
   }
+  // }
+  // // // skip "index search" if no listitem is selected
+  // if (
+  //   document.querySelector('#content__recipe_page').classList.contains('hide')
+  // ) {
+  //   return;
+  // }
 }
-////////////////// CHECK //////////////////
+// // // search fav index in main recipe_list
 function f_search_index_by_name(search_name, arr_input) {
   for (let i = 0; i < arr_input.length; i++) {
     if (search_name == arr_input[i].name) {
@@ -212,6 +209,7 @@ function f_search_index_by_name(search_name, arr_input) {
     }
   }
 }
+// // // close edit menu
 function f_add_or_edit_close() {
   input_form.classList.remove('content__scroll_list_add_or_edit_show');
   unhide_id('coincidence_btn');
@@ -227,7 +225,6 @@ function f_add_or_edit_close() {
     }, 200);
   } else {
     open_list_item(recipe.recipe_list, actual_recipe_i);
-    console.log(actual_recipe_i);
     //TODO reload list div
   }
 }
@@ -259,7 +256,7 @@ btn_new_recipe_save.addEventListener('click', function () {
   btn_active(btn_new_recipe_save);
   new_recipe_obj.name = recipe_name.value;
   new_recipe_obj.preparation = preperation.value;
-
+  const search_name = recipe_name.value;
   if (recipe_page_active) {
     recipe.recipe_list[actual_recipe_i] = new_recipe_obj;
     setTimeout(() => {
@@ -286,7 +283,7 @@ btn_new_recipe_save.addEventListener('click', function () {
   new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));
   f_add_or_edit_close();
   if (recipe_page_active == true) {
-    const search_name = recipe.recipe_list[actual_recipe_i].name;
+    // const search_name = recipe.recipe_list[actual_recipe_i].name;
     f_search_index_by_name(search_name, recipe.recipe_list);
     open_list_item(recipe.recipe_list, actual_recipe_i);
   }
@@ -320,9 +317,14 @@ function ingredient_add_elements(
 }
 
 btn_add_edit_close.addEventListener('click', function () {
-  btn_active(btn_add_edit_close);
-  new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));
-  f_add_or_edit_close();
+  if (confirm(`Bearbeitung abbrechen ?`)) {
+    btn_active(btn_add_edit_close);
+    new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));
+    f_add_or_edit_close();
+    if (content_page.classList.contains('content_page_1')) {
+      navbar_current_icon_switch_to(btn_recipe);
+    }
+  }
 });
 
 btn_recipe_trash.addEventListener('click', function () {
@@ -402,10 +404,6 @@ function f_content_page(page) {
   content_page.classList.remove('content_page_2');
   content_page.classList.remove('content_page_3');
   content_page.classList.remove('content_page_4');
-  // DELETE
-  // document
-  //   .querySelector('#content__recipe_page')
-  //   .classList.remove('content__recipe_page_fav');
 
   if (page == 1) {
     content_page.classList.add('content_page_1');
@@ -415,10 +413,6 @@ function f_content_page(page) {
   }
   if (page == 3) {
     content_page.classList.add('content_page_3');
-    // DELETE
-    // document
-    //   .querySelector('#content__recipe_page')
-    //   .classList.add('content__recipe_page_fav');
   }
   if (page == 4) {
     content_page.classList.add('content_page_4');
@@ -443,15 +437,12 @@ function btn_active(active_btn) {
   }, timer);
 }
 //////////////////////////////////////////////////////////////////////////////////
-
+// // // close menu if click in main div
 document.querySelector('#main_div').addEventListener('click', () => {
-  const navbar_current = document
-    .querySelectorAll('.navbar__icon')
-    .forEach(el => {
-      if (el.classList.contains('current_icon')) {
-        current_page = el.id;
-      }
-    });
+  if (touchendX < 185) {
+    document.querySelector('#menu_box').classList.add('menu_box_closed');
+  }
+  //debugging main div btn check
 });
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -729,12 +720,12 @@ if (get_local_list == null) {
 
   f_fill_div(recipe.recipe_list, '#div_ar_menulist', 'menulist');
   recipe_create_fav(recipe.recipe_list);
-  // f_fill_div(recipe_fav2, '#div_ar_menulist_fav', 'menulist_fav');CHECK DELETE
 }
 
 // // // create new locale file by using liste name
 function update_or_create_list_at_localstorage(name, obj) {
   recipe.recipe_list.sort(sort_array_alphabetic);
+  recipe_create_fav(recipe.recipe_list);
   localStorage.setItem(name, JSON.stringify(obj));
   f_fill_div(recipe.recipe_list, '#div_ar_menulist', 'menulist');
 }
@@ -811,14 +802,9 @@ btn_load_list_from_txt_file.addEventListener('click', async () => {
 //////////////////////////////////////////////////////////////////////////////////
 // // // Sort Array alphabetically
 function sort_array_alphabetic(a, b) {
-  // console.log(a.name);
-  if (a.name < b.name) {
-    return -1;
-  }
-  if (a.last_nom > b.last_nom) {
-    return 1;
-  }
-  return 0;
+  a = a.name;
+  b = b.name;
+  return a.toLowerCase().localeCompare(b.toLowerCase());
 }
 
 //////////////////////////////////////////////////////////////////////////////////
