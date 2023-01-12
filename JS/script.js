@@ -1,6 +1,5 @@
 'use strickt';
-// reloade div after change recipe or fav
-// reopen after new name
+// reloade div after change recipe or fav ??
 // Animation swipe list le ri
 
 // fav obj show list
@@ -10,7 +9,14 @@
 
 // // weeklyplan
 // // shoppinglist
-// // search function
+// // // // // search function
+// // // recipe to shoopinglist
+// // // display recipe
+// // // btn to switch to single list
+// // // add all items together
+// // // push = text decloration line
+// // // Push delete item
+// // // btn delete all clear list
 
 const local_list_name = 'Kochstudio_Rezepte';
 const emty_list_str = 'Die Liste ist leer !';
@@ -84,6 +90,9 @@ const load_example_list = document.querySelector('#load_example_list');
 const btn_coincidence = document.querySelector('#coincidence_btn');
 const btn_add_or_edit = document.querySelector('#btn_add_or_edit');
 const navbar__fav_on_off = document.querySelector('#navbar__fav_on_off');
+const navbar__shopping_list_on_off = document.querySelector(
+  '#navbar__shopping_list_on_off'
+);
 // // // Navbar
 const btn_recipe = document.querySelector('#btn_recipe');
 const btn_weekly_plan = document.querySelector('#btn_weekly_plan');
@@ -112,7 +121,9 @@ const content_ingredients_box = document.querySelector(
 // // // div boxes
 const div_menulist = document.querySelector('#div_menulist');
 const div_menulist_fav = document.querySelector('#div_menulist_fav');
-
+const content_shooping_list_box = document.querySelector(
+  '#content_shooping_list_box'
+);
 //////////////////////////////////////////////////////////////////////////////////
 // // // Function Menu Button
 //////////////////////////////////////////////////////////////////////////////////
@@ -162,13 +173,15 @@ function f_btn_add_or_edit() {
   unhide_id('save_btn_new_recipe_box');
   ingredients_show_box.innerHTML = ' ';
   let i; //= f_check_index_recipe_or_fav();
-  new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));
+  // new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));DELETE
+  new_recipe_obj = copy_object(recipe_obj_example);
 
   // // // check if index is from recipe or fav => than open
   if (recipe_page_active == true) {
     i = f_check_index_recipe_or_fav();
     h1_name(recipe.recipe_list[i].name);
-    new_recipe_obj = JSON.parse(JSON.stringify(recipe.recipe_list[i]));
+    // new_recipe_obj = JSON.parse(JSON.stringify(recipe.recipe_list[i]));DELETE
+    new_recipe_obj = copy_object(recipe.recipe_list[i]);
     // // // fill with Content if editmode (ingredients + preperation)
     input_fill_with_content(new_recipe_obj);
     input_edit_icon_opacity();
@@ -193,14 +206,10 @@ function f_check_index_recipe_or_fav() {
   } else {
     return actual_recipe_i;
   }
-  // }
-  // // // skip "index search" if no listitem is selected
-  // if (
-  //   document.querySelector('#content__recipe_page').classList.contains('hide')
-  // ) {
-  //   return;
-  // }
 }
+const copy_object = obj => {
+  return JSON.parse(JSON.stringify(obj));
+};
 // // // search fav index in main recipe_list
 function f_search_index_by_name(search_name, arr_input) {
   for (let i = 0; i < arr_input.length; i++) {
@@ -280,7 +289,8 @@ btn_new_recipe_save.addEventListener('click', function () {
   preperation.value = '';
   ingredients_show_box.innerHTML = ' ';
   // // // clear new_recipe_obj
-  new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));
+  // new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));DELETE
+  new_recipe_obj = copy_object(recipe_obj_example);
   f_add_or_edit_close();
   if (recipe_page_active == true) {
     // const search_name = recipe.recipe_list[actual_recipe_i].name;
@@ -319,7 +329,8 @@ function ingredient_add_elements(
 btn_add_edit_close.addEventListener('click', function () {
   if (confirm(`Bearbeitung abbrechen ?`)) {
     btn_active(btn_add_edit_close);
-    new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));
+    // new_recipe_obj = JSON.parse(JSON.stringify(recipe_obj_example));DELETE
+    new_recipe_obj = copy_object(recipe_obj_example);
     f_add_or_edit_close();
     if (content_page.classList.contains('content_page_1')) {
       navbar_current_icon_switch_to(btn_recipe);
@@ -395,7 +406,6 @@ function f_btn_shoopinglist() {
   btn_navbar_icon_active(btn_shoopinglist);
   h1_name('Einkaufsliste');
   navbar_current_icon_switch_to(btn_shoppinglist);
-  console.log(new_recipe_obj);
 }
 //////////////////////////////////////////////////////////////////////////////////
 // // // Slide functions
@@ -517,7 +527,6 @@ function hide_content_box(hide) {
 const input_trash_icon = arr => {
   document.querySelectorAll('.input_trash_icon').forEach(el =>
     el.addEventListener('click', function () {
-      console.log(arr);
       let el_id = el.id.substring(5, el.id.length);
       // delete item from arr
       arr.ingredients.splice(el_id, 1);
@@ -642,7 +651,7 @@ const ingredient_fill_p = (arr, target, index) => {
     '" class="input_edit_icon input_trash_icon trash_icon icon_opacity" name="trash-outline"></ion-icon>';
   for (let j = 0; j < 3; j++) {
     p2 = j == 1 ? '<p class=grid_number>' : '<p>';
-    ingredient = arr[j];
+    arr[j] == '' ? (ingredient = '&nbsp') : (ingredient = arr[j]); // ingredient = arr[j];DELETE
     target.innerHTML += p2 + ingredient + '</p>';
   }
   target.innerHTML +=
@@ -717,7 +726,7 @@ if (get_local_list == null) {
   localStorage.setItem(local_list_name, JSON.stringify(recipe));
 } else {
   recipe = get_local_list;
-
+  // load fav bug ??? how realise
   f_fill_div(recipe.recipe_list, '#div_ar_menulist', 'menulist');
   recipe_create_fav(recipe.recipe_list);
 }
@@ -942,6 +951,77 @@ function update_h1_and_nav_icon(page) {
     navbar_current_icon_switch_to(btn_shoppinglist);
   }
 }
+
+//////////////////////////////////////////////////////////////////////////////////
+// // // Shooping_list
+//////////////////////////////////////////////////////////////////////////////////
+
+navbar__shopping_list_on_off.addEventListener('click', function () {
+  f_check_index_recipe_or_fav();
+  const add_to_shooping_list = copy_object(recipe.recipe_list[actual_recipe_i]);
+  // // // check if allredy exist on shoopinglist, if not push to list
+  if (
+    f_search_index_by_name(
+      recipe.recipe_list[actual_recipe_i].name,
+      (recipe.shopping_list.recipe_list = [])
+    ) == undefined
+  ) {
+    // // // add status to remeber check status
+    for (let i = 0; i < add_to_shooping_list.ingredients.length; i++) {
+      add_to_shooping_list.ingredients[i].push({ status: true });
+    }
+    // // // push to arr shoopinglist
+    recipe.shopping_list.recipe_list.push(add_to_shooping_list);
+    // display // ingredient_fill_p = (arr, target, index)
+  }
+  update_or_create_list_at_localstorage(local_list_name, recipe);
+});
+
+// console.log(recipe.shopping_list.recipe_list[0]);
+
+const ingredient_fill_shoppinglist = (arr, target, index, check_status) => {
+  if (check_status) {
+    return;
+  }
+  let ingredient, p2;
+  // // // delete btn & swap order EXAMPLE
+  let check_id = 'check__' + index;
+  let uncheck_id = 'uncheck' + index;
+  for (let j = 0; j < 3; j++) {
+    p2 = j == 1 ? '<p class=grid_number>' : '<p>';
+    arr[j] == '' ? (ingredient = '&nbsp') : (ingredient = arr[j]);
+    target.innerHTML += p2 + ingredient + '</p>';
+  }
+  target.innerHTML +=
+    '<ion-icon id="' +
+    check_id +
+    '" class="input_edit_icon check_icon " name="checkmark-circle-outline"></ion-icon>';
+
+  target.innerHTML +=
+    '<ion-icon id="' +
+    uncheck_id +
+    '" class="input_edit_icon swap_icon grid_swap_order icon_opacity" name="close-circle-outline"></ion-icon>';
+};
+
+function fill_shooping_list_div(shooping_list_arr) {
+  shooping_list_arr.forEach(el => {
+    for (let i = 0; i < el.ingredients.length; i++) {
+      ingredient_fill_shoppinglist(
+        el.ingredients[i],
+        content_shooping_list_box,
+        i,
+        el.ingredients[3].status
+      );
+    }
+  });
+}
+
+fill_shooping_list_div(recipe.shopping_list.recipe_list);
+
+// push to arr = create new obj or delete
+// display all
+// checkbox go down
+// delete all
 
 //////////////////////////////////////////////////////////////////////////////////
 // // // Search

@@ -100,7 +100,8 @@ body {
   font-size: 100%; /*62%*/
   font-family: var(--ff_main);
   position: fixed;
-  background-color: var(--clr_main_background);
+  /* background-color: var(--clr_main_background); */
+  background-color: rgb(104, 104, 104);
   width: 100vw;
   height: 100vh;
   margin: 0px;
@@ -125,7 +126,9 @@ textarea {
   min-height: 600px;
   max-height: 1000px;
   min-width: 300px;
-  max-width: 750px;
+  max-width: 700px;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .header {
@@ -228,6 +231,7 @@ textarea {
   transition: all 250ms ease-in-out;
   height: 100vh;
   width: 80vw;
+  max-width: 500px;
   gap: 1rem;
 }
 
@@ -326,6 +330,7 @@ textarea {
   flex-direction: column;
   margin-top: 0.5rem;
   width: 100vw;
+  max-width: 700px;
   padding: 2rem;
   padding-top: 0;
 }
@@ -361,7 +366,7 @@ textarea {
   justify-content: space-between;
   flex-direction: column;
   left: 86vw;
-  top: 8rem;
+  top: 7rem;
   z-index: 999; /*yyy back */
 }
 
@@ -423,6 +428,7 @@ h2 {
   position: absolute;
   height: 73vh;
   width: 100vw;
+  max-width: 700px;
   overflow-y: scroll;
   transition: all 250ms ease-in-out;
   transform: translateY(125%);
@@ -520,15 +526,23 @@ h2 {
 #ingredients_show_box {
   row-gap: 0.8rem;
 }
+#ingredients_show_box p {
+  padding: 0 0.2rem;
+}
 .input_edit_icon {
   scale: 1.2;
   align-self: center;
+  /* margin-left: 0.5rem; */
 }
 .icon_opacity {
   opacity: 0;
 }
+.swap_icon {
+  margin-left: 0.5rem;
+}
 .input_trash_icon {
   color: brown;
+  margin-right: 0.5rem;
 }
 .add_box {
   display: flex;
@@ -652,13 +666,13 @@ h2 {
 }
 .content__coincidence_icon {
   position: absolute;
-  top: -4em;
-  left: 1.8em;
+  top: -3rem;
+  left: 1.8rem;
 }
 .content__input_icon_pos {
   position: absolute;
-  top: -4em;
-  right: 2em;
+  top: -3rem;
+  right: 2rem;
 }
 .content__input_icon {
   justify-content: center;
@@ -666,7 +680,7 @@ h2 {
   background-color: var(--clr_btn_list);
   filter: drop-shadow(rgb(128, 126, 126) 1px 1px 4px);
   border: var(--clr_main_background) solid 2px;
-  scale: 1.4;
+  scale: 1.1;
   opacity: 0.8;
   border-radius: 100px;
   padding: 0.3rem;
